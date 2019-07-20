@@ -22,8 +22,7 @@ app.get('/', (req, res) => {
 
 
 app.get('/api/db/:sqlquery', (req, res) => {
-
-    let sql=req.params.sqlquery.substring(1, req.params.sqlquery.length-1);
+    let sql=req.params.sqlquery
     db.all(sql, [], (err, rows) => {
         if (err) {
           throw err;
