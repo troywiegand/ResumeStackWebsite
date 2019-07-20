@@ -3,6 +3,12 @@ const app = express();
 const sqlite3 = require('sqlite3').verbose();
 const dblocale = '/home/troy/Resume/resume.db'
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:5000"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 let db = new sqlite3.Database(dblocale, (err) => {
     if (err) {
       console.error(err.message);
