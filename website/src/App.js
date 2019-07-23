@@ -26,12 +26,12 @@ class App extends Component {
   }
 
   handleSubmit(event) {
-    this.APICall(this.state.value);
+    this.APICall("troy", this.state.value);
     event.preventDefault();
   }
 
-  APICall = (string) => {
-    fetch('http://localhost:3000/api/db/' + string)
+  APICall = (name, string) => {
+    fetch('http://localhost:3000/api/db/' +name+"/"+string)
       .then(res => res.json())
       .then(
         (result) => {
