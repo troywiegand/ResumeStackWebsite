@@ -1,36 +1,41 @@
-import React, { Component } from 'react';
-import './App.css';
-
-
+import React, { Component } from "react";
+import "./App.css";
 
 class App extends Component {
-
-
   constructor(props) {
     super(props);
     this.state = {
       error: null,
+      troyPersonal: [],
+      troyEducation: [],
+      troyClasses: [],
+      troyWork: [],
+      troyOtherExp: [],
+      troySkills: [],
+      ashleyPersonal: [],
+      ashleyEducation: [],
+      ashleyClasses: [],
+      ashleyWork: [],
+      ashleyOtherExp: [],
+      ashleySkills: [],
+      loadingPersonalTroy: true,
+      loadingEducationTroy: true,
+      loadingClassesTroy: true,
+      loadingWorkTroy: true,
+      loadingOtherExpTroy: true,
+      loadingSkillsTroy: true,
+      loadingPersonalAshley: true,
+      loadingEducationAshley: true,
+      loadingClassesAshley: true,
+      loadingWorkAshley: true,
+      loadingOtherExpAshley: true,
+      loadingSkillsAshley: true
     };
-    this.APICall("troy", "SELECT * FROM Personal", "Personal");
-    this.APICall("troy", "SELECT * FROM Education", "Education");
-    this.APICall("troy", "SELECT * FROM Classes", "Classes");
-
-    this.APICall("troy", "SELECT * FROM Experience WHERE Type='Work'", "Work");
-    this.APICall("troy", "SELECT * FROM Experience WHERE Type!='Work'", "OtherExp");
-    this.APICall("troy", "SELECT * FROM Skills WHERE Type='Language' OR Type='Framework'", "Skiils");
-
-    this.APICall("ashley", "SELECT * FROM Personal", "Personal");
-    this.APICall("ashley", "SELECT * FROM Education", "Education");
-    this.APICall("ashley", "SELECT * FROM Classes", "Classes");
-
-    this.APICall("ashley", "SELECT * FROM Experience WHERE Type='Work'", "Work");
-    this.APICall("ashley", "SELECT * FROM Experience WHERE Type!='Work'", "OtherExp");
-    this.APICall("ashley", "SELECT * FROM Skills WHERE Type='Language' OR Type='Framework'", "Skiils");
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
+
   handleChange(event) {
     this.setState({ value: event.target.value });
   }
@@ -40,40 +45,206 @@ class App extends Component {
     event.preventDefault();
   }
 
-
-  APICall = (name, string, section) => {
-    fetch('http://localhost:3000/api/db/' +name+"/"+string)
-      .then( (res) => res.json())
-      .then(
-        (result) => {
-          console.log(result)
-          console.log(name+section)
-          let actualname=name+section
-          this.setState({
-            [actualname]: {result}
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          this.setState({
-            error
-          });
-        }
-      )
+  componentWillMount() {
+    fetch(
+      "http://localhost:3000/api/db/" + "troy" + "/" + "SELECT * FROM Personal"
+    )
+      .then(res => res.json())
+      .then(result => {
+        let actualname = "troy" + "Personal";
+        console.log(actualname);
+        console.log(result);
+        this.setState({
+          [actualname]: result,
+          loadingPersonalTroy: false
+        });
+      });
+    fetch(
+      "http://localhost:3000/api/db/" + "troy" + "/" + "SELECT * FROM Education"
+    )
+      .then(res => res.json())
+      .then(result => {
+        let actualname = "troy" + "Education";
+        console.log(actualname);
+        console.log(result);
+        this.setState({
+          [actualname]: result,
+          loadingEducationTroy: false
+        });
+      });
+    fetch(
+      "http://localhost:3000/api/db/" + "troy" + "/" + "SELECT * FROM Classes"
+    )
+      .then(res => res.json())
+      .then(result => {
+        let actualname = "troy" + "Classes";
+        console.log(actualname);
+        console.log(result);
+        this.setState({
+          [actualname]: result,
+          loadingClassesTroy: false
+        });
+      });
+    fetch(
+      "http://localhost:3000/api/db/" +
+        "troy" +
+        "/" +
+        "SELECT * FROM Experience WHERE Type='Work'"
+    )
+      .then(res => res.json())
+      .then(result => {
+        let actualname = "troy" + "Work";
+        console.log(actualname);
+        console.log(result);
+        this.setState({
+          [actualname]: result,
+          loadingWorkTroy: false
+        });
+      });
+    fetch(
+      "http://localhost:3000/api/db/" +
+        "troy" +
+        "/" +
+        "SELECT * FROM Experience WHERE Type!='Work'"
+    )
+      .then(res => res.json())
+      .then(result => {
+        let actualname = "troy" + "OtherExp";
+        console.log(actualname);
+        console.log(result);
+        this.setState({
+          [actualname]: result,
+          loadingOtherExpTroy: false
+        });
+      });
+    fetch(
+      "http://localhost:3000/api/db/" +
+        "troy" +
+        "/" +
+        "SELECT * FROM Skills WHERE Type='Language' OR Type='Framework'"
+    )
+      .then(res => res.json())
+      .then(result => {
+        let actualname = "troy" + "Skills";
+        console.log(actualname);
+        console.log(result);
+        this.setState({
+          [actualname]: result,
+          loadingSkillsTroy: false
+        });
+      });
+    fetch(
+      "http://localhost:3000/api/db/" +
+        "ashley" +
+        "/" +
+        "SELECT * FROM Personal"
+    )
+      .then(res => res.json())
+      .then(result => {
+        let actualname = "ashley" + "Personal";
+        console.log(actualname);
+        console.log(result);
+        this.setState({
+          [actualname]: result,
+          loadingPersonalAshley: false
+        });
+      });
+    fetch(
+      "http://localhost:3000/api/db/" +
+        "ashley" +
+        "/" +
+        "SELECT * FROM Education"
+    )
+      .then(res => res.json())
+      .then(result => {
+        let actualname = "ashley" + "Education";
+        console.log(actualname);
+        console.log(result);
+        this.setState({
+          [actualname]: result,
+          loadingEducationAshley: false
+        });
+      });
+    fetch(
+      "http://localhost:3000/api/db/" + "ashley" + "/" + "SELECT * FROM Classes"
+    )
+      .then(res => res.json())
+      .then(result => {
+        let actualname = "ashley" + "Classes";
+        console.log(actualname);
+        console.log(result);
+        this.setState({
+          [actualname]: result,
+          loadingClassesAshley: false
+        });
+      });
+    fetch(
+      "http://localhost:3000/api/db/" +
+        "ashley" +
+        "/" +
+        "SELECT * FROM Experience WHERE Type='Work'"
+    )
+      .then(res => res.json())
+      .then(result => {
+        let actualname = "ashley" + "Work";
+        console.log(actualname);
+        console.log(result);
+        this.setState({
+          [actualname]: result,
+          loadingWorkAshley: false
+        });
+      });
+    fetch(
+      "http://localhost:3000/api/db/" +
+        "ashley" +
+        "/" +
+        "SELECT * FROM Experience WHERE Type!='Work'"
+    )
+      .then(res => res.json())
+      .then(result => {
+        let actualname = "ashley" + "OtherExp";
+        console.log(actualname);
+        console.log(result);
+        this.setState({
+          [actualname]: result,
+          loadingOtherExpAshley: false
+        });
+      });
+    fetch(
+      "http://localhost:3000/api/db/" +
+        "ashley" +
+        "/" +
+        "SELECT * FROM Skills WHERE Type='Language' OR Type='Framework'"
+    )
+      .then(res => res.json())
+      .then(result => {
+        let actualname = "ashley" + "Skills";
+        console.log(actualname);
+        console.log(result);
+        this.setState({
+          [actualname]: result,
+          loadingSkillsAshley: false
+        });
+      });
   }
 
-
-
   render() {
+    const loading =
+      this.state.loadingPersonalTroy ||
+      this.state.loadingEducationTroy ||
+      this.state.loadingClassesTroy ||
+      this.state.loadingWorkTroy ||
+      this.state.loadingOtherExpTroy ||
+      this.state.loadingSkillsTroy ||
+      this.state.loadingPersonalAshley ||
+      this.state.loadingEducationAshley ||
+      this.state.loadingClassesAshley ||
+      this.state.loadingWorkAshley ||
+      this.state.loadingOtherExpAshley ||
+      this.state.loadingSkillsAshley;
     return (
       <div className="App">
-
-        <p className="App-intro">
-          `{JSON.stringify(this.state.troy)}`
-        </p>
-
+        {loading ? "loading" : this.state.troyClasses[0].Code}
       </div>
     );
   }
