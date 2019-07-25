@@ -263,6 +263,8 @@ class App extends Component {
       expstring+="\\item\n\\ressubheading{"+work["Place"]+"}{"+work["Location"]+"}{"+work["Position"]+"}{"+work["Started"]+" - "+work["Completed"]+"} \n\n\n"
       expstring+=work["Desc"]+"\n\n"
     })
+    expstring+="\\end{description}"
+
 
    let skillstring="\\resheading{Skills}\n\n\\begin{description}"
     skillstring+="\n\\item[Languages:]\n"
@@ -307,6 +309,8 @@ class App extends Component {
       expstring+="\\item\n\\ressubheading{"+work["Place"]+"}{"+work["Location"]+"}{"+work["Position"]+"}{"+work["Started"]+" - "+work["Completed"]+"} \n\n\n"
       expstring+=work["Desc"]+"\n\n"
     })
+    expstring+="\\end{description}"
+
 
     skillstring="\\resheading{Skills}\n\n\\begin{description}"
     skillstring+="\n\\item[Languages:]\n"
@@ -321,7 +325,18 @@ class App extends Component {
     let ashleystring=preamble+headingstring+edustring+workstring+expstring+skillstring+endstring
     console.log(ashleystring)
     
-  
+    fetch('http://localhost:3000/api/latex/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstParam: 'yourValue',
+        secondParam: 'yourOtherValue',
+        latex: troystring,
+      })
+    }).then(res=>{console.log(res)})
 
   }
 
