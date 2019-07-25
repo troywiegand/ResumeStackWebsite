@@ -79,7 +79,7 @@ class Resume extends Component {
           <div className="category">Work</div>
           <div className="info">
             {isTroy ? troyWork.map((item) => {return <div className="work"><strong>{item.Place}, {item.Location}</strong><br />{item.Started}-{item.Completed} <br /> Position: {item.Position}<br /> {item.Desc}</div>}) : ashleyWork.map((item) => {return <div className="work"><strong>{item.Place}, {item.Location}</strong><br />{item.Started}-{item.Completed} <br /> Position: {item.Position}<br /> {item.Desc}</div>})}
-            {isTroy ? troyOtherExp.map((item) => {return <div><strong>{item.Place}, {item.Location}</strong><br />{item.Started}-{item.Completed} <br /> Position: {item.Position}<br /> {item.Desc}</div>}) : ashleyOtherExp.map((item) => {return <div><strong>{item.Place}, {item.Location}</strong><br />{item.Started}-{item.Completed} <br /> Position: {item.Position}<br /> {item.Desc}</div>})}
+            {isTroy ? troyOtherExp.map((item) => {return <div className="work"><strong>{item.Place}, {item.Location}</strong><br />{item.Started}-{item.Completed} <br /> Position: {item.Position}<br /> {item.Desc}</div>}) : ashleyOtherExp.map((item) => {return <div className="work"><strong>{item.Place}, {item.Location}</strong><br />{item.Started}-{item.Completed} <br /> Position: {item.Position}<br /> {item.Desc}</div>})}
           </div>
           <div className="category">Classes</div>
           <div className="info">
