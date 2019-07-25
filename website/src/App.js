@@ -454,21 +454,23 @@ class App extends Component {
       this.makeBaseResumeString();
     }
     return (
-      <div>
-        <button
-          className="button"
-          value="Troy"
-          onClick={this.handleResumeChoice}
-        >
-          Troy
-        </button>
-        <button
-          className="button"
-          value="Ashley"
-          onClick={this.handleResumeChoice}
-        >
-          Ashley
-        </button>
+      <div className="Page">
+        <div>
+          <button
+            className="button"
+            value="Troy"
+            onClick={this.handleResumeChoice}
+          >
+            Troy
+          </button>
+          <button
+            className="button"
+            value="Ashley"
+            onClick={this.handleResumeChoice}
+          >
+            Ashley
+          </button>
+        </div>
         {loading ? (
           "loading"
         ) : (

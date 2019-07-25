@@ -1,8 +1,33 @@
 .title {
   font-size: 40px;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
 }
 .category {
   background-color: maroon;
-  width: 150px;
+  width: auto;
+  max-width: 300px;
+  padding: 7px;
+  text-align: center;
+  color: white;
   border-radius: 6px;
+}
+
+.resume {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.resumeBody{
+  max-width: 1100px;
+}
+
+.info {
+  padding: 17px;
+}
+
+.work {
+  margin: 10px 0;
 }
