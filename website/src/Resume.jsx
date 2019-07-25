@@ -27,12 +27,11 @@ class Resume extends Component {
 
     const getSkills = skills => {
       skills.map(skill => {
-        <div>
-          {skill.Name}: {skill.rating}
-        </div>;
+          <div key={skill.Name}>
+            {skill.Name}: {skill.Rating}
+          </div>
+    
       });
-
-      return "hi";
     };
 
     return (
@@ -70,9 +69,11 @@ class Resume extends Component {
         Completed:
         {isTroy ? troyEducation[0].Completed : ashleyEducation[0].Completed}
         <div>Skills</div>
-        {isTroy ? getSkills(troySkills) : getSkills(ashleySkills)}
+        {isTroy ? troySkills.map((item) => {return <div>{item.Name}: {item.Rating}</div>}) : ashleySkills.map((item) => {return <div>{item.Name}: {item.Rating}</div>})}
         <div>Work</div>
+        {isTroy ? troyWork.map((item) => {return <div><strong>{item.Place}, {item.Location}</strong><br />{item.Started}-{item.Completed} <br /> Position: {item.Position}<br /> {item.Desc}</div>}) : ashleyWork.map((item) => {return <div><strong>{item.Place}, {item.Location}</strong><br />{item.Started}-{item.Completed} <br /> Position: {item.Position}<br /> {item.Desc}</div>})}
         <div>Classes</div>
+        {isTroy ? troyClasses.map((item) => {return <div><strong>{item.Code} {item.Name}</strong></div>}) : ashleyClasses.map((item) => {return <div><strong>{item.Code} {item.Name}</strong></div>})}
       </div>
     );
   }
