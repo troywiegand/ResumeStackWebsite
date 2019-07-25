@@ -18,8 +18,10 @@
   cursor: pointer;
   color:white;
   border-width: 0;
+  transition: background-color 0.5s ease
 }
 
 .button:hover {
   background-color: #1d3568;
+  box-shadow: 7px 6px 9px #888878
 }
