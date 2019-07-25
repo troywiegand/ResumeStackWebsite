@@ -48,6 +48,7 @@ app.get('/api/db/ashley/:sqlquery', (req, res) => {
       }
       res.send(rows);
     });
+    
 
 });
 

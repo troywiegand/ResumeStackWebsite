@@ -10,35 +10,47 @@ class App extends Component {
     super(props);
     this.state = {
       error: null,
-      isLoaded: false,
-      items: ["yee"],
-      value: "SQL HERE"
     };
+    this.APICall("troy", "SELECT * FROM Personal", "Personal");
+    this.APICall("troy", "SELECT * FROM Education", "Education");
+    this.APICall("troy", "SELECT * FROM Classes", "Classes");
+
+    this.APICall("troy", "SELECT * FROM Experience WHERE Type='Work'", "Work");
+    this.APICall("troy", "SELECT * FROM Experience WHERE Type!='Work'", "OtherExp");
+    this.APICall("troy", "SELECT * FROM Skills WHERE Type='Language' OR Type='Framework'", "Skiils");
+
+    this.APICall("ashley", "SELECT * FROM Personal", "Personal");
+    this.APICall("ashley", "SELECT * FROM Education", "Education");
+    this.APICall("ashley", "SELECT * FROM Classes", "Classes");
+
+    this.APICall("ashley", "SELECT * FROM Experience WHERE Type='Work'", "Work");
+    this.APICall("ashley", "SELECT * FROM Experience WHERE Type!='Work'", "OtherExp");
+    this.APICall("ashley", "SELECT * FROM Skills WHERE Type='Language' OR Type='Framework'", "Skiils");
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-
   
   handleChange(event) {
     this.setState({ value: event.target.value });
   }
 
   handleSubmit(event) {
-    this.APICall("troy", this.state.value);
+    this.APICall("troy", "SELECT * FROM Classes", "Classes");
     event.preventDefault();
   }
 
-  APICall = (name, string) => {
+
+  APICall = (name, string, section) => {
     fetch('http://localhost:3000/api/db/' +name+"/"+string)
-      .then(res => res.json())
+      .then( (res) => res.json())
       .then(
         (result) => {
           console.log(result)
+          console.log(name+section)
+          let actualname=name+section
           this.setState({
-            isLoaded: true,
-            items: result
+            [actualname]: {result}
           });
         },
         // Note: it's important to handle errors here
@@ -46,7 +58,6 @@ class App extends Component {
         // exceptions from actual bugs in components.
         (error) => {
           this.setState({
-            isLoaded: true,
             error
           });
         }
@@ -60,16 +71,8 @@ class App extends Component {
       <div className="App">
 
         <p className="App-intro">
-          `{JSON.stringify(this.state.items)}`
+          `{JSON.stringify(this.state.troy)}`
         </p>
-
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Name:
-    <textarea value={this.state.value} onChange={this.handleChange} />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
 
       </div>
     );
