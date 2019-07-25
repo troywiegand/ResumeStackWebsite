@@ -1,23 +1,12 @@
 import React, { Component } from "react";
+import Resume from "./Resume";
 import "./App.css";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: null,
-      troyPersonal: [],
-      troyEducation: [],
-      troyClasses: [],
-      troyWork: [],
-      troyOtherExp: [],
-      troySkills: [],
-      ashleyPersonal: [],
-      ashleyEducation: [],
-      ashleyClasses: [],
-      ashleyWork: [],
-      ashleyOtherExp: [],
-      ashleySkills: [],
+      resumeChoice: "Troy",
       loadingPersonalTroy: true,
       loadingEducationTroy: true,
       loadingClassesTroy: true,
@@ -32,12 +21,12 @@ class App extends Component {
       loadingSkillsAshley: true
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleResumeChoice = this.handleResumeChoice.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({ value: event.target.value });
+  handleResumeChoice(event) {
+    this.setState({ resumeChoice: event.target.value });
   }
 
   handleSubmit(event) {
@@ -243,8 +232,18 @@ class App extends Component {
       this.state.loadingOtherExpAshley ||
       this.state.loadingSkillsAshley;
     return (
-      <div className="App">
-        {loading ? "loading" : this.state.troyClasses[0].Code}
+      <div>
+        <button value="Troy" onClick={this.handleResumeChoice}>
+          Troy
+        </button>
+        <button value="Ashley" onClick={this.handleResumeChoice}>
+          Ashley
+        </button>
+        {loading ? (
+          "loading"
+        ) : (
+          <Resume resumeChoice={this.state.resumeChoice} {...this.state} />
+        )}
       </div>
     );
   }
