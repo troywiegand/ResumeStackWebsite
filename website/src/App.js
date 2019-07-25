@@ -217,117 +217,223 @@ class App extends Component {
       });
   }
 
-  makeBaseResumeString = () =>{
+  makeBaseResumeString = () => {
+    const preamble =
+      "\\documentclass[letterpaper,11pt]{article}\n%-----------------------------------------------------------\n%Margin setup\n\n\\setlength{\\voffset}{0.1in}\n\\setlength{\\paperwidth}{8.5in}\n\\setlength{\\paperheight}{11in}\n\\setlength{\\headheight}{0in}\n\\setlength{\\headsep}{0in}\n\\setlength{\\textheight}{11in}\n\\setlength{\\textheight}{9.5in}\n\\setlength{\\topmargin}{-0.25in}\n\\setlength{\\textwidth}{7in}\n\\setlength{\\topskip}{0in}\n\\setlength{\\oddsidemargin}{-0.25in}\n\\setlength{\\evensidemargin}{-0.25in}\n%-----------------------------------------------------------" +
+      "\n\\usepackage{tcolorbox}\n%\\usepackage{fullpage}\n%\\usepackage{shading}\n%\\textheight=9.0in\n\\pagestyle{empty}\n\\raggedbottom\n\\raggedright\n\\setlength{\\tabcolsep}{0in}\n\n%-----------------------------------------------------------\n%Custom commands\n\\definecolor{yeetGreen}{HTML}{C1FFC4}" +
+      "\n\\newtcolorbox{trixiematel}[1][]\n{\n    colframe=blue!50!black, colback=lightgray,\n  #1,\n}\n\\newcommand{\\resitem}[1]{\\item #1 \\vspace{-2pt}}\n\\newcommand{\\resheading}[1]{ \\begin{trixiematel}\\textbf{#1}\\end{trixiematel}}\n\\newcommand{\\ressubheading}[4]{\n\\begin{tabular*}{6.5in}{l@{\\extracolsep{\\fill}}r}\n                \\textbf{#1} & #2 \\\\\n                \\textit{#3} & \\textit{#4} \\\\\n\\end{tabular*}\\vspace{2pt}}" +
+      "\n\\newcommand{\\Heading}[5]{\n    \\begin{tabular*}{7in}{l@{\\extracolsep{\\fill}}r}\n        \\textbf{\\Large #1}  & #2\\\\\n        #3 & #4 \\\\\n        & #5 \\\\\n        \\end{tabular*}}\n%-----------------------------------------------------------" +
+      "\n\n\\begin{document}";
 
-    const preamble = "\\documentclass[letterpaper,11pt]{article}\n%-----------------------------------------------------------\n%Margin setup\n\n\\setlength{\\voffset}{0.1in}\n\\setlength{\\paperwidth}{8.5in}\n\\setlength{\\paperheight}{11in}\n\\setlength{\\headheight}{0in}\n\\setlength{\\headsep}{0in}\n\\setlength{\\textheight}{11in}\n\\setlength{\\textheight}{9.5in}\n\\setlength{\\topmargin}{-0.25in}\n\\setlength{\\textwidth}{7in}\n\\setlength{\\topskip}{0in}\n\\setlength{\\oddsidemargin}{-0.25in}\n\\setlength{\\evensidemargin}{-0.25in}\n%-----------------------------------------------------------"+"\n\\usepackage{tcolorbox}\n%\\usepackage{fullpage}\n%\\usepackage{shading}\n%\\textheight=9.0in\n\\pagestyle{empty}\n\\raggedbottom\n\\raggedright\n\\setlength{\\tabcolsep}{0in}\n\n%-----------------------------------------------------------\n%Custom commands\n\\definecolor{yeetGreen}{HTML}{C1FFC4}"+"\n\\newtcolorbox{trixiematel}[1][]\n{\n    colframe=blue!50!black, colback=lightgray,\n  #1,\n}\n\\newcommand{\\resitem}[1]{\\item #1 \\vspace{-2pt}}\n\\newcommand{\\resheading}[1]{ \\begin{trixiematel}\\textbf{#1}\\end{trixiematel}}\n\\newcommand{\\ressubheading}[4]{\n\\begin{tabular*}{6.5in}{l@{\\extracolsep{\\fill}}r}\n                \\textbf{#1} & #2 \\\\\n                \\textit{#3} & \\textit{#4} \\\\\n\\end{tabular*}\\vspace{2pt}}"+"\n\\newcommand{\\Heading}[5]{\n    \\begin{tabular*}{7in}{l@{\\extracolsep{\\fill}}r}\n        \\textbf{\\Large #1}  & #2\\\\\n        #3 & #4 \\\\\n        & #5 \\\\\n        \\end{tabular*}}\n%-----------------------------------------------------------"+"\n\n\\begin{document}"
+    let headingstring =
+      "\\Heading{" +
+      this.state.troyPersonal[0]["FirstName"] +
+      " " +
+      this.state.troyPersonal[0]["LastName"] +
+      "}{" +
+      this.state.troyPersonal[0]["PhoneNumber"] +
+      "}{" +
+      this.state.troyPersonal[0]["ProfessionalEmail"] +
+      "}{" +
+      this.state.troyPersonal[0]["PersonalURL"] +
+      "}{" +
+      this.state.troyPersonal[0]["GithubURL"] +
+      "}";
 
+    let edustring = "\n\\resheading{Education}\n\\begin{description}\n";
 
-    let headingstring = "\\Heading{"+this.state.troyPersonal[0]["FirstName"]+" "+this.state.troyPersonal[0]["LastName"]+"}{"+this.state.troyPersonal[0]["PhoneNumber"]+"}{"+this.state.troyPersonal[0]["ProfessionalEmail"]+"}{"+this.state.troyPersonal[0]["PersonalURL"]+"}{"+this.state.troyPersonal[0]["GithubURL"]+"}"
+    this.state.troyEducation.forEach(edu => {
+      edustring =
+        edustring +
+        "\\item\n\\ressubheading{" +
+        edu["School"] +
+        "}{" +
+        edu["Location"] +
+        "}{" +
+        edu["Degree"] +
+        "}{" +
+        edu["Started"] +
+        " - " +
+        edu["Completed"] +
+        "} \n\n\n";
+      edustring += "Relevant Courses: ";
+      this.state.troyClasses.forEach(c => {
+        edustring += c["Name"] + ", ";
+      });
+      edustring = edustring.slice(0, -2) + "\n\n";
+    });
 
-    let edustring = "\n\\resheading{Education}\n\\begin{description}\n"
+    edustring += "\\end{description}";
 
-    this.state.troyEducation.forEach((edu)=>{
+    let workstring = "\n\\resheading{Work Experience}\n\\begin{description}\n";
+    this.state.troyWork.forEach(work => {
+      workstring +=
+        "\\item\n\\ressubheading{" +
+        work["Place"] +
+        "}{" +
+        work["Location"] +
+        "}{" +
+        work["Position"] +
+        "}{" +
+        work["Started"] +
+        " - " +
+        work["Completed"] +
+        "} \n\n\n";
+      workstring += work["Desc"] + "\n\n";
+    });
+    workstring += "\n \\end{description}\n";
 
-      edustring=edustring+"\\item\n\\ressubheading{"+edu["School"]+"}{"+edu["Location"]+"}{"+edu["Degree"]+"}{"+edu["Started"]+" - "+edu["Completed"]+"} \n\n\n"
-      edustring+="Relevant Courses: "
-      this.state.troyClasses.forEach((c)=>{
-        edustring+=c["Name"]+", "
-      })
-      edustring=edustring.slice(0,-2)+"\n\n"
+    let expstring =
+      "\n\\resheading{Miscellaneous Experience}\n\\begin{description}\n";
+    this.state.troyOtherExp.forEach(work => {
+      expstring +=
+        "\\item\n\\ressubheading{" +
+        work["Place"] +
+        "}{" +
+        work["Location"] +
+        "}{" +
+        work["Position"] +
+        "}{" +
+        work["Started"] +
+        " - " +
+        work["Completed"] +
+        "} \n\n\n";
+      expstring += work["Desc"] + "\n\n";
+    });
+    expstring += "\\end{description}";
 
-    })
+    let skillstring = "\\resheading{Skills}\n\n\\begin{description}";
+    skillstring += "\n\\item[Languages:]\n";
+    this.state.troySkills.forEach(lang => {
+      skillstring += lang["Name"] + ", ";
+    });
+    skillstring = skillstring.slice(0, -2);
+    skillstring += "\\end{description}";
 
-    edustring+="\\end{description}"
+    let endstring = "\\end{document}";
 
-    let workstring = "\n\\resheading{Work Experience}\n\\begin{description}\n"
-    this.state.troyWork.forEach((work)=>{
-      workstring+="\\item\n\\ressubheading{"+work["Place"]+"}{"+work["Location"]+"}{"+work["Position"]+"}{"+work["Started"]+" - "+work["Completed"]+"} \n\n\n"
-      workstring+=work["Desc"]+"\n\n"
-    })
-    workstring+="\n \\end{description}\n"
+    let troystring =
+      preamble +
+      headingstring +
+      edustring +
+      workstring +
+      expstring +
+      skillstring +
+      endstring;
+    console.log(troystring);
+    ///////////////////////////////////////////////////
+    headingstring =
+      "\\Heading{" +
+      this.state.ashleyPersonal[0]["FirstName"] +
+      " " +
+      this.state.ashleyPersonal[0]["LastName"] +
+      "}{" +
+      this.state.ashleyPersonal[0]["PhoneNumber"] +
+      "}{" +
+      this.state.ashleyPersonal[0]["ProfessionalEmail"] +
+      "}{" +
+      this.state.ashleyPersonal[0]["PersonalURL"] +
+      "}{" +
+      this.state.ashleyPersonal[0]["GithubURL"] +
+      "}";
 
+    edustring = "\n\\resheading{Education}\n\\begin{description}\n";
 
-    let expstring="\n\\resheading{Miscellaneous Experience}\n\\begin{description}\n"
-    this.state.troyOtherExp.forEach((work)=>{
-      expstring+="\\item\n\\ressubheading{"+work["Place"]+"}{"+work["Location"]+"}{"+work["Position"]+"}{"+work["Started"]+" - "+work["Completed"]+"} \n\n\n"
-      expstring+=work["Desc"]+"\n\n"
-    })
-    expstring+="\\end{description}"
+    this.state.ashleyEducation.forEach(edu => {
+      edustring =
+        edustring +
+        "\\item\n\\ressubheading{" +
+        edu["School"] +
+        "}{" +
+        edu["Location"] +
+        "}{" +
+        edu["Degree"] +
+        "}{" +
+        edu["Started"] +
+        " - " +
+        edu["Completed"] +
+        "} \n\n\n";
+      edustring += "Relevant Courses: ";
+      this.state.ashleyClasses.forEach(c => {
+        edustring += c["Name"] + ", ";
+      });
+      edustring = edustring.slice(0, -2) + "\n\n";
+    });
 
+    edustring += "\\end{description}";
 
-   let skillstring="\\resheading{Skills}\n\n\\begin{description}"
-    skillstring+="\n\\item[Languages:]\n"
-    this.state.troySkills.forEach((lang)=>{
-      skillstring+=lang["Name"]+", "
-    })
-    skillstring=skillstring.slice(0,-2)
-    skillstring+="\\end{description}"
+    workstring = "\n\\resheading{Work Experience}\n\\begin{description}\n";
+    this.state.ashleyWork.forEach(work => {
+      workstring +=
+        "\\item\n\\ressubheading{" +
+        work["Place"] +
+        "}{" +
+        work["Location"] +
+        "}{" +
+        work["Position"] +
+        "}{" +
+        work["Started"] +
+        " - " +
+        work["Completed"] +
+        "} \n\n\n";
+      workstring += work["Desc"] + "\n\n";
+    });
+    workstring += "\n \\end{description}\n";
 
-    let endstring="\\end{document}"
+    expstring =
+      "\n\\resheading{Miscellaneous Experience}\n\\begin{description}\n";
+    this.state.ashleyOtherExp.forEach(work => {
+      expstring +=
+        "\\item\n\\ressubheading{" +
+        work["Place"] +
+        "}{" +
+        work["Location"] +
+        "}{" +
+        work["Position"] +
+        "}{" +
+        work["Started"] +
+        " - " +
+        work["Completed"] +
+        "} \n\n\n";
+      expstring += work["Desc"] + "\n\n";
+    });
+    expstring += "\\end{description}";
 
-    let troystring=preamble+headingstring+edustring+workstring+expstring+skillstring+endstring
-    console.log(troystring)
-///////////////////////////////////////////////////
-     headingstring = "\\Heading{"+this.state.ashleyPersonal[0]["FirstName"]+" "+this.state.ashleyPersonal[0]["LastName"]+"}{"+this.state.ashleyPersonal[0]["PhoneNumber"]+"}{"+this.state.ashleyPersonal[0]["ProfessionalEmail"]+"}{"+this.state.ashleyPersonal[0]["PersonalURL"]+"}{"+this.state.ashleyPersonal[0]["GithubURL"]+"}"
+    skillstring = "\\resheading{Skills}\n\n\\begin{description}";
+    skillstring += "\n\\item[Languages:]\n";
+    this.state.ashleySkills.forEach(lang => {
+      skillstring += lang["Name"] + ", ";
+    });
+    skillstring = skillstring.slice(0, -2);
+    skillstring += "\\end{description}";
 
-     edustring = "\n\\resheading{Education}\n\\begin{description}\n"
+    endstring = "\\end{document}";
 
-    this.state.ashleyEducation.forEach((edu)=>{
+    let ashleystring =
+      preamble +
+      headingstring +
+      edustring +
+      workstring +
+      expstring +
+      skillstring +
+      endstring;
+    console.log(ashleystring);
 
-      edustring=edustring+"\\item\n\\ressubheading{"+edu["School"]+"}{"+edu["Location"]+"}{"+edu["Degree"]+"}{"+edu["Started"]+" - "+edu["Completed"]+"} \n\n\n"
-      edustring+="Relevant Courses: "
-      this.state.ashleyClasses.forEach((c)=>{
-        edustring+=c["Name"]+", "
-      })
-      edustring=edustring.slice(0,-2)+"\n\n"
-
-    })
-
-    edustring+="\\end{description}"
-
-     workstring = "\n\\resheading{Work Experience}\n\\begin{description}\n"
-    this.state.ashleyWork.forEach((work)=>{
-      workstring+="\\item\n\\ressubheading{"+work["Place"]+"}{"+work["Location"]+"}{"+work["Position"]+"}{"+work["Started"]+" - "+work["Completed"]+"} \n\n\n"
-      workstring+=work["Desc"]+"\n\n"
-    })
-    workstring+="\n \\end{description}\n"
-
-
-     expstring="\n\\resheading{Miscellaneous Experience}\n\\begin{description}\n"
-    this.state.ashleyOtherExp.forEach((work)=>{
-      expstring+="\\item\n\\ressubheading{"+work["Place"]+"}{"+work["Location"]+"}{"+work["Position"]+"}{"+work["Started"]+" - "+work["Completed"]+"} \n\n\n"
-      expstring+=work["Desc"]+"\n\n"
-    })
-    expstring+="\\end{description}"
-
-
-    skillstring="\\resheading{Skills}\n\n\\begin{description}"
-    skillstring+="\n\\item[Languages:]\n"
-    this.state.ashleySkills.forEach((lang)=>{
-      skillstring+=lang["Name"]+", "
-    })
-    skillstring=skillstring.slice(0,-2)
-    skillstring+="\\end{description}"
-
-     endstring="\\end{document}"
-
-    let ashleystring=preamble+headingstring+edustring+workstring+expstring+skillstring+endstring
-    console.log(ashleystring)
-    
-    fetch('http://localhost:3000/api/latex/', {
-      method: 'POST',
+    fetch("http://localhost:3000/api/latex/", {
+      method: "POST",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        firstParam: 'yourValue',
-        secondParam: 'yourOtherValue',
-        latex: troystring,
+        firstParam: "yourValue",
+        secondParam: "yourOtherValue",
+        latex: troystring
       })
-    }).then(res=>{console.log(res)})
-
-  }
+    }).then(res => {
+      console.log(res);
+    });
+  };
 
   render() {
     const loading =
@@ -344,13 +450,23 @@ class App extends Component {
       this.state.loadingOtherExpAshley ||
       this.state.loadingSkillsAshley;
 
-      if(!loading){this.makeBaseResumeString()}
+    if (!loading) {
+      this.makeBaseResumeString();
+    }
     return (
       <div>
-        <button value="Troy" onClick={this.handleResumeChoice}>
+        <button
+          className="button"
+          value="Troy"
+          onClick={this.handleResumeChoice}
+        >
           Troy
         </button>
-        <button value="Ashley" onClick={this.handleResumeChoice}>
+        <button
+          className="button"
+          value="Ashley"
+          onClick={this.handleResumeChoice}
+        >
           Ashley
         </button>
         {loading ? (

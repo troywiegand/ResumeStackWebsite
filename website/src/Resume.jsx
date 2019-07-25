@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Resume.css";
 
 class Resume extends Component {
   constructor(props) {
@@ -36,8 +37,8 @@ class Resume extends Component {
 
     return (
       <div>
-        <div>{resumeChoice}'s Resume</div>
-        <div>Personal Info</div>
+        <div className="title">{resumeChoice}'s Resume</div>
+        <div className="category">Personal Info</div>
         <div>
           {isTroy ? troyPersonal[0].FirstName : ashleyPersonal[0].FirstName}{" "}
           {isTroy ? troyPersonal[0].LastName : ashleyPersonal[0].lastName}
@@ -56,7 +57,7 @@ class Resume extends Component {
           Github:{" "}
           {isTroy ? troyPersonal[0].GithubURL : ashleyPersonal[0].GithubURL}
         </div>
-        <div>Education</div>
+        <div className="category">Education</div>
         Degree:
         {isTroy ? troyEducation[0].Degree : ashleyEducation[0].Degree}
         <br />
@@ -68,11 +69,12 @@ class Resume extends Component {
         <br />
         Completed:
         {isTroy ? troyEducation[0].Completed : ashleyEducation[0].Completed}
-        <div>Skills</div>
+        <div className="category">Skills</div>
         {isTroy ? troySkills.map((item) => {return <div>{item.Name}: {item.Rating}</div>}) : ashleySkills.map((item) => {return <div>{item.Name}: {item.Rating}</div>})}
-        <div>Work</div>
+        <div className="category">Work</div>
         {isTroy ? troyWork.map((item) => {return <div><strong>{item.Place}, {item.Location}</strong><br />{item.Started}-{item.Completed} <br /> Position: {item.Position}<br /> {item.Desc}</div>}) : ashleyWork.map((item) => {return <div><strong>{item.Place}, {item.Location}</strong><br />{item.Started}-{item.Completed} <br /> Position: {item.Position}<br /> {item.Desc}</div>})}
-        <div>Classes</div>
+        {isTroy ? troyOtherExp.map((item) => {return <div><strong>{item.Place}, {item.Location}</strong><br />{item.Started}-{item.Completed} <br /> Position: {item.Position}<br /> {item.Desc}</div>}) : ashleyOtherExp.map((item) => {return <div><strong>{item.Place}, {item.Location}</strong><br />{item.Started}-{item.Completed} <br /> Position: {item.Position}<br /> {item.Desc}</div>})}
+        <div className="category">Classes</div>
         {isTroy ? troyClasses.map((item) => {return <div><strong>{item.Code} {item.Name}</strong></div>}) : ashleyClasses.map((item) => {return <div><strong>{item.Code} {item.Name}</strong></div>})}
       </div>
     );
