@@ -74,7 +74,7 @@ class Resume extends Component {
           </div>
           <div className="category">Skills</div>
           <div className="info"> 
-           {isTroy ? troySkills.map((item) => {return <div>{item.Name}: {item.Rating}</div>}) : ashleySkills.map((item) => {return <div>{item.Name}: {item.Rating}</div>})}
+           {isTroy ? troySkills.map((item) => {return <div>{item.Name}</div>}) : ashleySkills.map((item) => {return <div>{item.Name}</div>})}
           </div>
           <div className="category">Work</div>
           <div className="info">
