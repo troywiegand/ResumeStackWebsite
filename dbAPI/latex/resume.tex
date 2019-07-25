@@ -1,0 +1,101 @@
+\documentclass[letterpaper,11pt]{article}
+%-----------------------------------------------------------
+%Margin setup
+
+\setlength{\voffset}{0.1in}
+\setlength{\paperwidth}{8.5in}
+\setlength{\paperheight}{11in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\textheight}{11in}
+\setlength{\textheight}{9.5in}
+\setlength{\topmargin}{-0.25in}
+\setlength{\textwidth}{7in}
+\setlength{\topskip}{0in}
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\evensidemargin}{-0.25in}
+%-----------------------------------------------------------
+\usepackage{tcolorbox}
+%\usepackage{fullpage}
+%\usepackage{shading}
+%\textheight=9.0in
+\pagestyle{empty}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+%-----------------------------------------------------------
+%Custom commands
+\definecolor{yeetGreen}{HTML}{C1FFC4}
+\newtcolorbox{trixiematel}[1][]
+{
+    colframe=blue!50!black, colback=lightgray,
+  #1,
+}
+\newcommand{\resitem}[1]{\item #1 \vspace{-2pt}}
+\newcommand{\resheading}[1]{ \begin{trixiematel}\textbf{#1}\end{trixiematel}}
+\newcommand{\ressubheading}[4]{
+\begin{tabular*}{6.5in}{l@{\extracolsep{\fill}}r}
+                \textbf{#1} & #2 \\
+                \textit{#3} & \textit{#4} \\
+\end{tabular*}\vspace{2pt}}
+\newcommand{\Heading}[5]{
+    \begin{tabular*}{7in}{l@{\extracolsep{\fill}}r}
+        \textbf{\Large #1}  & #2\\
+        #3 & #4 \\
+        & #5 \\
+        \end{tabular*}}
+%-----------------------------------------------------------
+
+\begin{document}\Heading{Troy Wiegand}{+15742708328}{troy@troywiegand.com}{troywiegand.com}{github.com/troywiegand}
+\resheading{Education}
+\begin{description}
+\item
+\ressubheading{Butler University}{Indianapolis, IN}{B.S. Mathematics and Computer Science}{August 2016 - Present} 
+
+
+Relevant Courses: Parallel Algorithms, Object Oriented Design, Algorithms, Teaching Practicum, Elementary Statistics, Algebra: Groups, Real Analysis 1, EPICS, Databases, Computer Organization, Object-Oriented Programming, Discrete 2, Real Analysis 2, Complex Analysis, Discrete Mathematics, Differential Equations, Numerical Analysis, Basics of Advanced Mathematics, Calculus 3, Linear Algebra, Calculus 2, Intro to CS
+
+\end{description}
+\resheading{Work Experience}
+\begin{description}
+\item
+\ressubheading{Computer Science Department}{Butler University}{Tutor}{August 2018 - Present} 
+
+
+Ran an open Computer Science tutor session for Butlers introductory coding course taught using C++ and introductory Discrete Mathematics course.  This runs two hours once a week.  Balancedmultiple projects to give the best advice and extra educational support to help all of the differentstudents I work with.
+
+\item
+\ressubheading{Mathematics Department}{Butler University}{Tutor}{August 2017 - Present} 
+
+
+Ran an open tutoring session for all 100 and 200 level Math Courses.
+
+\item
+\ressubheading{Mathematics Department}{Butler University}{Intern}{January 2017 - Present} 
+
+
+I work with professors to help create and administer learning assessments and activities. I hold my own independent office hours were students of my classes could come ask for assistance. I run review sessions for my classes and during finals week a review session for every section of the courses I enriched. I have worked with Pre-Calculus, Calculus I, Calculus II, and Linear Algebra students.
+
+\item
+\ressubheading{Ace Hardware}{Winamac, IN}{Manager}{June 2010 - Present} 
+
+
+I coordinated inventory management. I communicated and delegated tasks to coworkers. I installed and maintained various technologies such as new computers for registers, new signature pads, and telecommunication infrastructure.
+
+
+ \end{description}
+
+\resheading{Miscellaneous Experience}
+\begin{description}
+\item
+\ressubheading{Indiana Association of Student Councils}{Indiana}{Technology Head}{April 2019 - Present} 
+
+
+Help Mantain and Develop Necessary Technology Solutions such as the IASC website, conference audio/video setup, and various promotional videos. Helped Soggy Sam survive lfe.
+
+\end{description}\resheading{Skills}
+
+\begin{description}
+\item[Languages:]
+C++, Java, JavaScript, HTML, CSS, Bash, Python, C\#, \LaTeX, React, SQL\end{description}\end{document}

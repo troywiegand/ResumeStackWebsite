@@ -1,1 +1,4 @@
 */node_modules/
+
+dbAPI/latex/*.aux
+dbAPI/latex/*.log
